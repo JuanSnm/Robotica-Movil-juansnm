@@ -12,9 +12,15 @@ Veamos como funciona cada estado:
 
 1. AVANZAR (en forma de espiral)
 
-2. RETROCEDER
+Para el movimiento en espiral hemos usado la fórmula física  `v = r ⋅ ω` donde vamos aumentando v hasta que cambia de estado, donde vuelve a su velocidad inicial para que el robot no llegue a velocidades demasiado elevadas. 
 
-3. GIRAR (aleatoriamente)
+Para no perder reacctividad, fuera de todos lo estados, en cada iteración comprobamos el estado del bumper (para comprobar si se ha chocado). De esta forma conseguimos que la reacción sea casi inmediata.
+
+3. RETROCEDER
+
+Lo unico recalcable en la forma de retroceder es que lo hacemos por iteraciones. El funcionamiento se basa en una variable que suma una unidad por iteración y conociendo la frecuencia y la duración de una iteración (0.02 s), podemos determinar exactamente cuanto tiempo retrocede. En nuestro caso, cambiamos de estado a los 150 ticks/iteraciones, es decir, 3s.
+
+5. GIRAR (aleatoriamente)
 
 El movimiento es sencillo, unicamente establecemos la velocidad lineal a 0 `HAL.setV(0.0)` y establecemos una velocidad angular para que rote sobre si mismo `HAL.setW(0.8) `.
 
@@ -45,3 +51,11 @@ while True:
 ```
 Como ya sabemos en cada iteración pasan 0.02s. De esta forma el tiempo total para una acción `t = iteraciones * 1/Freq`. Por lo que usando la ecuacion `θ(angulo girado) = w(vel angular) * t`
 y aplicando la ecuacion del tiempo total para una acción que hemos definido antes, despejamos el número de iteraciones que son necesarias para alcanzar el ángulo deseado finalmente obtejemos: `iteraciones = (θ / w) * freq`. De esta forma, conociendo el número de iteraciones necesarias para alcanzar el ángulo deseado, aplicamos lo visto anteriormente en el estado de RETROCEDER.
+
+
+## Video del funcionamiento
+
+
+https://github.com/user-attachments/assets/3dd9c386-5865-40fe-b7fd-437ca09227c9
+
+
