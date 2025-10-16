@@ -1,0 +1,53 @@
+import WebGUI
+import HAL
+import Frequency
+
+import cv2
+import numpy as np
+
+kp = 2.5
+
+
+while True:
+    image = HAL.getImage()
+    Height, Width, _ = image.shape
+
+    hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+
+    # Rango rojo bajo
+    lower_red1 = np.array([0, 100, 100])
+    upper_red1 = np.array([10, 255, 255])
+    # Rango rojo alto
+    lower_red2 = np.array([160, 100, 100])
+    upper_red2 = np.array([179, 255, 255])
+
+    mask1 = cv2.inRange(hsv, lower_red1, upper_red1)
+    mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
+    # Unimos mascaras
+    mask = cv2.bitwise_or(mask1, mask2)
+
+    M = cv2.moments(mask)
+
+    if M["m00"] > 0:
+
+        cx = M["m10"] / M["m00"] # centro de masa x
+        cy = M["m01"] / M["m00"] # centro de masa y 
+
+        cv2.circle(image, (int(cx), int(cy)), 5, (0,255,0), -1) 
+        # (CHATGPT) para ver el punto y se pueda depurar mejor 
+        WebGUI.showImage(image)
+
+        err = (cx - (Width / 2)) / (Width / 2)
+
+        # Implementamos el P 
+        angular_speed = -kp * err
+
+        HAL.setV(4)
+        HAL.setW(angular_speed)
+
+    #else:
+        # no se ha detectado linea
+        # Girar hasta encontrarla 
+
+
+    Frequency.tick(50)
