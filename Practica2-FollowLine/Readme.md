@@ -6,6 +6,21 @@ Vamos a explicar y entender el funcionamiento de FollowLine. Donde el objetivo h
 
 ## Imagen  
 
+En primer lugar vamos a estudiar como hemos capturado la imagen:
+
+1. `image = HAL.getImage()` → Captura una imagen del simulador (una matriz con los valores de color de cada píxel).
+2. `cv2.cvtColor(image, cv2.COLOR_BGR2HSV)` → Convierte la imagen de formato BGR (por defecto en OpenCV) a HSV, que separa mejor el color (H) del brillo (V), facilitando detectar el rojo.
+
+3. `cv2.inRange()` → Crea una máscara binaria (blanco y negro) que marca en blanco los píxeles cuyo color esté dentro de un rango.
+Como el rojo está en dos zonas del espectro, usamos dos rangos ([0–10] y [160–179]) y obtenemos dos máscaras.
+
+4. `cv2.bitwise_or(mask1, mask2)` → Une esas dos máscaras para obtener una sola que contenga todas las zonas rojas.
+
+5. `M = cv2.moments(mask)` → Calcula los momentos de la máscara (propiedades geométricas).
+
+Si `M['m00'] > 0`, significa que hay área detectada, y podemos calcular el centroide de la línea roja, si
+`M['m00'] < 0` quiere decir que no la está detectando y comienza a girar sobre si mismo para volver a encontrarla. 
+
 ## Funcionamiento PIDs (Genérico)
 
 - CONTROLADOR → P
@@ -86,6 +101,9 @@ https://github.com/user-attachments/assets/03842e09-dfcc-4f0a-98ce-a11bbd44b107
 Es sorprendente observar la diferencia de tiempo con el uso de ambos PIDs en lugar de usar unicamente uno.
 
 ## Mejoras 
+
+## Resultado final 
+
 
 
 
