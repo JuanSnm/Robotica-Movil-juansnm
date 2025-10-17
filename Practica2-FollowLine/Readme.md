@@ -103,7 +103,12 @@ Es sorprendente observar la diferencia de tiempo con el uso de ambos PIDs en lug
 
 ## Resultado final 
 
-Después de mucha prueba y error ajustando poco a poco cada PID llegamos a la conclusion de que hemos llegado al límite de esta implementación. El uso de unicamente dos PIDs no permite bajar más el tiempo por vuelta. Con más implementaciones y ajustes de control seguro que se puede bajar dicho tiempo pero con nuestra implementación el tiempo más bajo capturado por vuelta es de: 
+Después de mucha prueba y error ajustando poco a poco cada PID llegamos a la conclusion de que hemos llegado al límite de esta implementación. El uso de unicamente dos PIDs no permite bajar más el tiempo por vuelta. Con más implementaciones y ajustes de control seguro que se puede bajar dicho tiempo pero con nuestra implementación el tiempo más bajo capturado por vuelta es de: `66-67s`
+
+
+https://github.com/user-attachments/assets/50b83949-3b10-4455-bb53-c87527289835
+
+
 
 
 
