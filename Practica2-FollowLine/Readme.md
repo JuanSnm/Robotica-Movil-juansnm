@@ -100,11 +100,10 @@ https://github.com/user-attachments/assets/03842e09-dfcc-4f0a-98ce-a11bbd44b107
 
 Es sorprendente observar la diferencia de tiempo con el uso de ambos PIDs en lugar de usar unicamente uno.
 
-## Mejoras 
 
 ## Resultado final 
 
-
+Después de mucha prueba y error ajustando poco a poco cada PID llegamos a la conclusion de que hemos llegado al límite de esta implementación. El uso de unicamente dos PIDs no permite bajar más el tiempo por vuelta. Con más implementaciones y ajustes de control seguro que se puede bajar dicho tiempo pero con nuestra implementación el tiempo más bajo capturado por vuelta es de: 
 
 
 
