@@ -32,24 +32,37 @@ El codigo se basa en el funcionamiento de dos PIDs que trabajan de forma coordin
 
 Este PID ajusta la velocidad angular del robot en función del error (desalineación con la línea), la integral (error acumulado) y la derivada (variación del error). Gracias a este controlador, el robot mantiene la línea centrada en su campo de visión y gira de manera suave y estable.
 
+Adjunto la carpeta (Direction-PID) donde se puede observar la implementación y la evolución del código en cuanto al Direction PID. En dicha carpeta aparecen varias soluciones donde se van añadiendo controladores para obtener un resultado final completo:
+
     Direction-PID/
     ├── FollowLine-P.py
     ├── FollowLine-PD.py
     └── FollowLine-PID.py
 
-#### VIDEO 
+   VIDEO 
+
+
+https://github.com/user-attachments/assets/eda7276b-c614-4f80-a860-4b68de7393e8
+
 
 ### Speed PID
 
 Cuando el error aumenta (al tomar una curva), el controlador reduce la velocidad para evitar salidas de trayectoria, mientras que en zonas rectas (error pequeño) aumenta la velocidad, y de esta forma, el robot adapta dinámicamente su velocidad a las condiciones del recorrido, combinando precisión y rapidez.
 
-    Direction-PID/
+Adjunto la carpeta (Speed-PID) donde se puede observar la implementación y la evolución del código en cuanto al Speed PID funcionando junto a Direction PID. En dicha carpeta aparecen varias soluciones donde se van añadiendo controladores para obtener un resultado final completo:
+
+    Speed-PID/
         ├── FollowLine-P.py
         ├── FollowLine-PD.py
         └── FollowLine-PID.py
 
-#### VIDEO 
+   VIDEO 
+
+https://github.com/user-attachments/assets/03842e09-dfcc-4f0a-98ce-a11bbd44b107
+
+Es sorprendente observar la diferencia de tiempo con el uso de ambos PIDs en lugar de usar unicamente uno.
 
 ## Mejoras 
+
 
 
