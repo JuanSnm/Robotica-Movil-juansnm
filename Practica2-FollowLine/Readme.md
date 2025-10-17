@@ -4,6 +4,8 @@ Página de Enunciado: `https://jderobot.github.io/RoboticsAcademy/exercises/Auto
 
 Vamos a explicar y entender el funcionamiento de FollowLine. Donde el objetivo ha sido crear e implementar usa serie de PIDs para permitir el funcionamiento de un robot sigue lineas cuyo objetivo es completar una vuelta en el menor tiempo posible. (seguimos con la idea de sistema reactivo)
 
+## Imagen  
+
 ## Funcionamiento PIDs (Genérico)
 
 - CONTROLADOR → P
@@ -28,6 +30,17 @@ Formula: `u = -(kp * err + kd * d_err + ki * integral)`
 
 El codigo se basa en el funcionamiento de dos PIDs que trabajan de forma coordinada para guiar al robot por la linea. El primero de ellos (Direction PID) es el encargado de controlar la dirección del robot, corrigiendo el error lateral entre el centro de la imagen y la posición de la linea detectada. El segundo (Speed PID) se encarga de se encarga de regular la velocidad lineal del robot en función del mismo error.
 
+CALCULO DEL ERROR 
+
+En esta practica nos referimos al error `err` como `err = (cx - (Width / 2)) / (Width / 2)`. 
+
+Con esta definición: 
+- `err = 0` → el centro de la línea coincide con el centro de la cámara, es decir, el robot está alineado correctamente.
+- `err > 0` → la línea está desplazada a la derecha respecto al centro, por lo que el robot debe girar a la derecha.
+- `err < 0` → la línea está desplazada a la izquierda, indicando un giro hacia la izquierda.
+
+Este error es normalizado dividiendo entre W/2, lo que lo mantiene en un rango aproximado de [-1, 1], facilitando la sintonización de los parámetros PID y evitando que las ganancias dependan del tamaño de la imagen.
+
 ### Direrction PID
 
 Este PID ajusta la velocidad angular del robot en función del error (desalineación con la línea), la integral (error acumulado) y la derivada (variación del error). Gracias a este controlador, el robot mantiene la línea centrada en su campo de visión y gira de manera suave y estable.
@@ -38,6 +51,8 @@ Adjunto la carpeta (Direction-PID) donde se puede observar la implementación y 
     ├── FollowLine-P.py
     ├── FollowLine-PD.py
     └── FollowLine-PID.py
+
+Lo más destacable es la limitación del valor de la integral para evitar acomular demasiado error, tal y como hemos mencionado antes: `integral = max(min(integral, 0.5), -0.5)`
 
    VIDEO 
 
@@ -63,6 +78,7 @@ https://github.com/user-attachments/assets/03842e09-dfcc-4f0a-98ce-a11bbd44b107
 Es sorprendente observar la diferencia de tiempo con el uso de ambos PIDs en lugar de usar unicamente uno.
 
 ## Mejoras 
+
 
 
 
