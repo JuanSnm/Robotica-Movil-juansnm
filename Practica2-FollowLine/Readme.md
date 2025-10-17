@@ -55,7 +55,7 @@ Adjunto la carpeta (Direction-PID) donde se puede observar la implementación y 
 Lo más destacable es la limitación del valor de la integral para evitar acomular demasiado error, tal y como hemos mencionado antes: `integral = max(min(integral, 0.5), -0.5)`
 
    VIDEO 
-
+(Funcionamiento usando unicamente el Direction PID)
 
 https://github.com/user-attachments/assets/eda7276b-c614-4f80-a860-4b68de7393e8
 
@@ -79,12 +79,14 @@ Es importante destacar la limitación de la velocidad en un rango `[Vmin, Vmax]`
 
 
    VIDEO 
+(Funcionamiento  Direction PID + speed PID)
 
 https://github.com/user-attachments/assets/03842e09-dfcc-4f0a-98ce-a11bbd44b107
 
 Es sorprendente observar la diferencia de tiempo con el uso de ambos PIDs en lugar de usar unicamente uno.
 
 ## Mejoras 
+
 
 
 
