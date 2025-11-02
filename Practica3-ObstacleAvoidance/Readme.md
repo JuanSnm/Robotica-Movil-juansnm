@@ -12,12 +12,10 @@ El enunciado de la propia práctica nos proporciona una serie de funciones que n
 
 Toma los datos del sensor laser y los transforma en:
 
-LISTA DE COORDENADAS POLARES → `laser_polar`
-
+#### Lista de coordenadas polares → `laser_polar`: 
 Cada elemento dentro de esta lista es una tupla que contiene la distancia y el ángulo (centrado en el frente del robot) a cualquier objeto que esté cerca de él. Ejemplo: `(1.2, 0.0)` → Elemento a 1.2 metros justo delante.
 
-LISTA DE COORDENADAS CARTESIANAS → `laser_xy`
-
+#### Lista de coordenadas cartesianas → `laser_xy`: 
 Cada elemento dentro de esta lista es una tupla (x, y) en el sistema de referencia del robot. De forma que, X significa delante e Y izquierda. Ejemplo: `(1.0, 0.0)` → obstáculo a 1 metro delante y a la misma altura del eje del robot.
 
 En definitiva, a través de esta función somos capaces de calcular las fuerzas repulsivas de cada obstáculo.
@@ -33,4 +31,17 @@ En cuanto a la salida, obtenemos `(x_rel, y_rel)` que representan la posición d
 En definitiva, a través de esta función somos capaces de calcular las fuerzas atractivas de cada objetivo para el robot.
 
 ## Funcionamiento 
+
+### Vector Atractivo
+
+Nuestro objetivo es obtener una fuerza que empuje al robot hacia el objetivo de forma que apunte en la dirección correcta, que sea más intensa cuanto más lejos se encuentra el robot del objetivo, que tenga un límite máximo y que nos permita comprobar si hemos alcanzado el objetivo.
+
+Los pasos que hemos seguido para consguir este resultado son los siguientes:
+
+
+
+### Vector Repulsivo 
+
+### Cálculo de velocidades 
+
 
