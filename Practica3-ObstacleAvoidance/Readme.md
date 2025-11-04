@@ -53,23 +53,33 @@ Fresultantev = α * Fatractiva + β * Frepulsiva
 ```
 Para calculas ambas variables primero calculamos `t`, que nos dice qué tan libre o bloqueado está el entorno del robot y devuelve un valor entre 0 y 1. Si el obstaculo está muy cerca `t ≈ 0` y si esta lejos `t ≈ 1.` Y finalmente calculamos las variables que nos interesan, de forma que, cuanto más lejos estén los obstáculos, mayor será α, es decir, el robot da más importancia al objetivo. Y cuanto más cerca esté un obstáculo, mayor será β, y por tanto el robot reacciona más intensamente para evitar colisiones.
 
-4. Finalmente calculamos la Fuerza repulsiva 
-
+4. Finalmente calculamos la Fuerza repulsiva a partir de las mediciones LiDAR: Para cada punto detectado dentro del rango de influencia, se calcula una fuerza de magnitud siguiendo esta fórmula: `F = k * ((1 / d) - (1 / r_max)) ^ n`
 
 ### Vector Atractivo
 
-Nuestro objetivo es obtener una fuerza que empuje al robot hacia el objetivo de forma que apunte en la dirección correcta, que sea más intensa cuanto más lejos se encuentra el robot del objetivo, que tenga un límite máximo y que nos permita comprobar si hemos alcanzado el objetivo.
+Nuestro objetivo es obtener una fuerza que empuje al robot hacia el objetivo de forma que apunte en la dirección correcta, que sea más intensa cuanto más lejos se encuentra el robot del objetivo, que tenga un límite máximo y que nos permita comprobar si hemos alcanzado el objetivo. (Sin embargo, en este caso lo hemos simplificado)
 
 Los pasos que hemos seguido para consguir este resultado son los siguientes:
 
+1. Obtenemos la posicion del objetivo en el sistema del robot (mapa local) usando la función que hemos explicado antes: `def absolute2relative (x_abs, y_abs, robotx, roboty, robott)`
+
+2. Calculamos la Fuerza atractiva con alpha como hemos explicado antes.
+
+### Vector Dirección 
+
+Finalmente sumamos ambos vectores para obtener el vector con al dirección que debe seguir el robot. Usaremos este vector para transformarlo a velocidad angular y velocidad lineal (en este caso la vel_lineal es constante).
 
 ### Cálculo de velocidades 
 
+Una vez obtenido el vector resultante (que combina las fuerzas atractivas y repulsivas), se realiza la conversión a velocidades de control para el robot.
+
+Primero, calculamos el error angular `err_ang`, que representa el ángulo entre la orientación actual del robot y la dirección del vector resultante. Para ello, usamos la función `atan2(Fy_total, Fx_total)`, que devuelve el ángulo del vector en el plano cartesiano y lo normalizamos entre [-pi, pi] para evitar discontinuidades. Y por ultimo añadimos un control proporcional para enviar por fin la velocidad linea (const) y la velocidad angular.
+
 ## Video 
 
-
-
 https://github.com/user-attachments/assets/f85c3d38-7b66-4546-98f7-609d3f152e26
+
+
 
 
 
