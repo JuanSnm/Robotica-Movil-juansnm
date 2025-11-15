@@ -47,44 +47,51 @@ Como esta es una de las funciones más importantes de nuestro programa vamos a r
 
 Vamos a estudiarlo a traves de un pseudo código para entenderlo mejor conceptualmente
 ```python
-function wavefront(goal, robot, map):
+def wavefront(goal, robot, map):
 
-    # Crear una matriz CAMPO del mismo tamaño que el mapa
-    CAMPO = matriz del tamaño de map 
-    # El destino tiene coste 0 porque es nuestro punto de partida
-    CAMPO[goal] = 0
+    # Crear una matriz CAMPO del tamaño del mapa donde guardaremos el coste
+    # Inicialmente todas las celdas tienen coste infinito (desconocido)
 
-    # Crear una cola de prioridad (Esta estructura siempre extrae la celda con el coste más pequeño)
-    heap = cola de prioridad vacía
-    # Insertar la celda de destino con coste 0
-    heap.insertar(0, goal)
+    # Asignar al destino un coste 0 porque es nuestro punto de referencia
 
-    # Una vez alcanzamos la celda del robot, guardamos su coste
-    nivel_robot = None
+    # Crear una cola de prioridad (min-heap)
+    # Esta estructura siempre devuelve la celda con el coste más pequeño
 
+    # Insertar en la cola la celda del destino con coste 0
 
-    # Bucle principal: ejecutar mientras haya celdas pendientes
-        cost, cell = heap.pop_min() # Extraemos la celda con menor coste conocido
+    # Inicializar una variable que guardará el coste óptimo del robot
+    # (cuando la expansión alcance su celda)
 
-        si cost > CAMPO[cell]: # Si esta entrada tiene un coste mayor que el almacenado en CAMPO, significa que es una versión antigua y la ignoramos
-            continuar
-        si cell == robot: # Si hemos llegado a la celda donde está el robot, guardamos su nivel (coste óptimo hasta esa posición)
-            nivel_robot = cost
+    # Comenzar el bucle principal:
+    # Mientras queden celdas por procesar en la cola:
 
-        # Después de haber visto al robot, no expandimos celdas mucho más caras que su coste + margen
-        si nivel_robot existe Y cost > nivel_robot + expandir_extra:
-            romper el bucle
+        # Extraer la celda con el coste más pequeño conocido
 
-        # Para cada vecino válido de la celda actual:
+        # Si este coste es mayor del que ya tenemos almacenado en CAMPO,
+        # significa que es una versión antigua y no se debe procesar
 
-             # Ignorar vecinos fuera del mapa o que sean obstáculos
+        # Si esta celda es la del robot:
+            # Guardar su nivel de coste (nivel_robot)
 
-             # Coste acumulado si llegamos a ncell desde cell
+        # Si ya conocemos el nivel del robot
+        # y el coste actual supera nivel_robot + un margen extra:
+            # Podemos detener la expansión porque ya no aporta información útil
 
-             # Actualizar el coste si encontramos una ruta más barata
+        # Para cada vecino de la celda actual (hasta 8 movimientos posibles):
+            
+            # Ignorar vecinos fuera del mapa
+
+            # Ignorar vecinos que sean obstáculos en el mapa
+            
+            # Calcular el nuevo coste acumulado para ese vecino
+            # (coste actual + coste del movimiento, que puede ser 1 o √2)
+
+            # Si este nuevo coste es menor que el almacenado en CAMPO:
+                # Actualizar CAMPO con el nuevo coste
+                # Insertar el vecino en la cola con su coste actualizado
 
     devolver CAMPO
-
+    
 
 ```
 
@@ -99,10 +106,49 @@ Finalmente obtenemos este funcionamiento como resultado:
 
 ## Path Navigation
 
+Al igual que en el Path Planning debemos entender primero lo fundamental. Una vez generado el campo de costes con la planificación global, el robot debe ser capaz de navegar dentro del mapa y dirigirse hacia el destino. Para ello debemos implementar una lógica de navegación que en nuestro caso se basa en:
+
+  1. Selección de un sub-objetivo local (local goal)
+
+Donde hacemos uso de la funcion: `def local_goal()`
+
+De la misma forma que antes usaremos un pseudocodigo para entender su funcionamiento 
+```python
+
+def local_goal(campo_costes, robot):
+
+    # buscar celdas dentro de un radio alrededor del robot
+
+    # elegir la celda:
+       # - con menor coste
+       # - libre de obstáculos
+       # - suficientemente alejada del robot
+       # - dentro de zona segura
+
+   devolver celda como sub-objetivo
+
+```
+
+  2. Cálculo de la orientación deseada
+
+Una vez elegido el sub-objetivo, el robot calcula la dirección desde su posición actual hasta el subpunto objetivo el ángulo ideal de orientación y el error angular (cuanto debe girar para mirar hacia el subpunto objetivo)
+
+  3. Cálculo de velocidad lineal y angular
+
+Finalmente aplicamos un control propocional (P) de foma que: si el robot está bien oreintado avanza rápido, si está muy girado reduce su velocidad lineal y si necesita girar aplica velocidad angular proporcional al error. 
+
+  4. Avance del robot suavemente hacia el destino final
+
+De esta forma el código se repite hasta que llega al destino donde se detiene al detectar que ha llegado al final.
+
+## Conclusión 
+
+Nuestra solución cumple el enunciado porque generamos un campo de costes global usando una expansión tipo Dijkstra sobre la cuadrícula, asignando pesos adecuados y evitando obstáculos. Además, añadimos una penalización cerca de muros, tal como se solicita para prevenir colisiones. Por otro lado, durante la navegación, seleccionamos metas locales dentro de un radio seguro y finalmente, el robot avanza usando control lineal y angular hacia estos sub-objetivos, completando la planificación y navegación exigidas.
 
 ## Vídeo Funcionamiento FINAL 
 
 https://github.com/user-attachments/assets/503bbb39-c83c-4a72-91ec-eeb4d59bc863
+
 
 
 
