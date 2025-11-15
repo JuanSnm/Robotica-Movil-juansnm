@@ -43,6 +43,51 @@ Esta función implementa un algoritmo de expansión de coste desde el destino. C
   6. Se detiene cuando ha expandido suficientemente cerca del robot (hasta el robot y un poco más).
   7. Devuelve el mapa: `wave_map`
 
+Como esta es una de las funciones más importantes de nuestro programa vamos a resaltar algunos puntos importantes: 
+
+Vamos a estudiarlo a traves de un pseudo código para entenderlo mejor conceptualmente
+```python
+function wavefront(goal, robot, map):
+
+    # Crear una matriz CAMPO del mismo tamaño que el mapa
+    CAMPO = matriz del tamaño de map 
+    # El destino tiene coste 0 porque es nuestro punto de partida
+    CAMPO[goal] = 0
+
+    # Crear una cola de prioridad (Esta estructura siempre extrae la celda con el coste más pequeño)
+    heap = cola de prioridad vacía
+    # Insertar la celda de destino con coste 0
+    heap.insertar(0, goal)
+
+    # Una vez alcanzamos la celda del robot, guardamos su coste
+    nivel_robot = None
+
+
+    # Bucle principal: ejecutar mientras haya celdas pendientes
+        cost, cell = heap.pop_min() # Extraemos la celda con menor coste conocido
+
+        si cost > CAMPO[cell]: # Si esta entrada tiene un coste mayor que el almacenado en CAMPO, significa que es una versión antigua y la ignoramos
+            continuar
+        si cell == robot: # Si hemos llegado a la celda donde está el robot, guardamos su nivel (coste óptimo hasta esa posición)
+            nivel_robot = cost
+
+        # Después de haber visto al robot, no expandimos celdas mucho más caras que su coste + margen
+        si nivel_robot existe Y cost > nivel_robot + expandir_extra:
+            romper el bucle
+
+        # Para cada vecino válido de la celda actual:
+
+             # Ignorar vecinos fuera del mapa o que sean obstáculos
+
+             # Coste acumulado si llegamos a ncell desde cell
+
+             # Actualizar el coste si encontramos una ruta más barata
+
+    devolver CAMPO
+
+
+```
+
 De esta forma construimos un campo de gradiente descendente, que atrae al robot hacia su objetivo.
 
 Finalmente debemos combinar los dos campos resultantes para obtener `combined_cost = wave_map + penalty_map` que es un mapa que marca el camino óptimo hacia el destino, penaliza las celdas que se encuentren cerca de los obstáculos, es suave y estable y asegura que el robot navegue por calles estrechas y curvas. 
@@ -58,6 +103,7 @@ Finalmente obtenemos este funcionamiento como resultado:
 ## Vídeo Funcionamiento FINAL 
 
 https://github.com/user-attachments/assets/503bbb39-c83c-4a72-91ec-eeb4d59bc863
+
 
 
 
