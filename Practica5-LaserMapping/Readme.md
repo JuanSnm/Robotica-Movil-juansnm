@@ -64,22 +64,22 @@ Explicar el funcionamiento es basicamente aplicar la teoría que hemos estudiant
 El funcionamiento del sistema se basa en transformar las lecturas del LIDAR en un mapa
 probabilístico mientras el robot navega de forma reactiva por el entorno.
 
-1. Lectura del LIDAR
+`1. Lectura del LIDAR`
 
 En cada iteración se obtienen 360 distancias. Cada rayo indica la posición de un posible
 obstáculo y se utiliza para actualizar el mapa.
 
-2.  Movimiento reactivo
+`2.  Movimiento reactivo`
 
 El robot decide si debe avanzar o girar según las distancias frontales del LIDAR.
 Esto permite explorar sin chocar.
 
-3.Actualización del mapa
+`3.Actualización del mapa`
 
 El mapa solo se actualiza cuando el robot avanza una distancia suficiente, evitando
 procesar datos redundantes.
 
-4. Transformación de los rayos
+`4. Transformación de los rayos`
 
 Cada rayo se convierte en:
 - coordenadas del robot → coordenadas globales
@@ -87,17 +87,17 @@ Cada rayo se convierte en:
 
 De este modo, cada medición del láser se ubica en una celda concreta.
 
-5. Ray tracing
+`5. Ray tracing`
 
 Las celdas entre el robot y el punto final del rayo se marcan como **libres** y, si hay impacto,
 la celda final se marca como **ocupada**.
 
-6. Log-odds
+`6. Log-odds`
 
 Cada celda del mapa se actualiza sumando evidencia de libre u ocupado. Con el tiempo,
 la probabilidad converge a un valor estable.
 
-7. Visualización
+`7. Visualización`
 
 El mapa se convierte a escala de grises (negro = obstáculo, blanco = libre, gris = desconocido)
 y se envía a la interfaz usando `WebGUI.setUserMap()`.
@@ -125,4 +125,5 @@ De esta forma, hemos aprendido todos los conceptos sobre este tipo de mapa robó
 
 ## Video 
 [Grabación de pantalla desde 2025-12-10 17-31-32.webm](https://github.com/user-attachments/assets/3711d5af-5236-4527-b73e-565b0995354e)
+
 
