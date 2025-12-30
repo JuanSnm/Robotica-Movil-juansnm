@@ -8,7 +8,15 @@ Para ello, el robot utiliza una cámara frontal con la que detecta etiquetas col
 
 ## Estructura 
 
-El desarrollo de la práctica se organiza en los siguientes bloques principales:
+Primero es necesario hacer una descripción general. La localización visual se basa en una cadena de transformaciones entre distintos sistemas de referencia:
+1. Detección del AprilTag en la imagen usando visión por computador.
+2. Estimación de la pose del tag respecto a la cámara mediante el algoritmo PnP (Perspective-n-Point).
+3. Transformación de la pose del tag al sistema de referencia del mundo, utilizando la información conocida de cada marcador almacenada en un archivo YAML.
+4. Conversión de la pose desde la cámara al robot, teniendo en cuenta la posición y orientación fija de la cámara en el robot.
+5. Obtención de la pose final del robot en el mapa, que se visualiza en el entorno.
+
+
+Ahora si, vamos a ver el desarrollo de la práctica,  que se organiza en los siguientes bloques principales:
 
 1. `Detección de AprilTags`
 
@@ -52,6 +60,7 @@ Esta práctica permite comprender de forma profunda cómo se realiza la localiza
 El uso de marcadores visuales proporciona una referencia global fiable que permite corregir los errores acumulados por la odometría, sentando las bases para sistemas más avanzados de localización y fusión sensorial utilizados en robótica real.
 
 ## Video
+
 
 
 
