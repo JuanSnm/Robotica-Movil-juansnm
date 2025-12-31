@@ -73,7 +73,10 @@ Esta práctica permite comprender de forma profunda cómo se realiza la localiza
 
 El uso de marcadores visuales proporciona una referencia global fiable que permite corregir los errores acumulados por la odometría, sentando las bases para sistemas más avanzados de localización y fusión sensorial utilizados en robótica real.
 
+(Ha sido necesario el uso de IA para completar la pŕactica, no funcionaba de ninguna manera)
+
 ## Video
+
 
 
 
