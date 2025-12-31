@@ -77,6 +77,8 @@ El uso de marcadores visuales proporciona una referencia global fiable que permi
 
 ## Video
 
+[Grabación de pantalla desde 2025-12-31 01-35-02.webm](https://github.com/user-attachments/assets/83afe7dc-cf10-4778-a7b7-821165e48f4d)
+
 
 
 
