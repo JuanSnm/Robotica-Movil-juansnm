@@ -52,6 +52,20 @@ Se utilizan transformaciones homogéneas para enlazar:
 - Sistema de referencia del robot.
 - Sistema de referencia del mundo (mapa).
 
+## Decisiones de diseño 
+
+`Modelo de cámara simplificado:` Se ha utilizado un modelo de cámara pinhole sin distorsión, suficiente para el entorno simulado y adecuado para la estimación de la pose mediante PnP.
+
+`Localización basada únicamente en visión:` La pose del robot se estima exclusivamente a partir de la detección de AprilTags, sin fusionar la información con la odometría, con el fin de centrarse en la localización absoluta basada en visión.
+
+`Uso de transformaciones homogéneas:` Todas las relaciones entre los sistemas de referencia (tag, cámara, robot y mundo) se gestionan mediante matrices de transformación homogéneas, garantizando coherencia geométrica y evitando correcciones empíricas.
+
+`Consideración de la pose real de la cámara:` Se ha tenido en cuenta la posición y orientación de la cámara respecto al robot, ya que ignorar esta transformación produce errores sistemáticos en la estimación.
+
+`Solución geométrica sin ajustes manuales:` La orientación final del robot se obtiene directamente de las transformaciones calculadas, sin aplicar correcciones manuales sobre el ángulo yaw.
+
+`Funcionamiento con uno o varios marcadores:` El sistema permite estimar la pose siempre que al menos un marcador sea visible en la imagen.
+
 ## Conclusión 
 
 Esta práctica permite comprender de forma profunda cómo se realiza la localización absoluta de un robot mediante visión, combinando conceptos de visión por computador, geometría 3D y robótica móvil.
@@ -60,6 +74,7 @@ Esta práctica permite comprender de forma profunda cómo se realiza la localiza
 El uso de marcadores visuales proporciona una referencia global fiable que permite corregir los errores acumulados por la odometría, sentando las bases para sistemas más avanzados de localización y fusión sensorial utilizados en robótica real.
 
 ## Video
+
 
 
 
